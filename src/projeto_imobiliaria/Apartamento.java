@@ -6,8 +6,8 @@ public class Apartamento extends Imovel{
     private double iptu;
     private double vlrCondominio;
 
-    public Apartamento(int cod, Endereco endereco, double area, StatusImovel status, double valor, int andar, int numeroApt, double iptu, double vlrCondominio) {
-        super(cod, endereco, area, status, valor);
+    public Apartamento( Endereco endereco, double area, StatusImovel status, double valor, int andar, int numeroApt, double iptu, double vlrCondominio) {
+        super( endereco,valor, area, status);
         this.andar = andar;
         this.numeroApt = numeroApt;
         this.iptu = iptu;

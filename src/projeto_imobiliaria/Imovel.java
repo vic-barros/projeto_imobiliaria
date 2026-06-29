@@ -18,9 +18,9 @@ public abstract class Imovel implements Calculavel {
 		this.area = area;
 		this.status = status;
 	}
-	
+
 	public abstract double calcularValorFinal();
-	 
+
 
 	@Override
 	public String toString() {
