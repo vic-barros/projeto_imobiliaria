@@ -22,7 +22,7 @@ public class Cliente {
 
 	public void setNome(String nome) {
 		if(nome == null || nome.strip().isEmpty()) {
-			System.out.println("Nome Nulo ou Vazio!");
+			throw new ValidacaoException("Nome inválido: não pode ser nulo ou vazio");
 		}else {
 			this.nome = nome;
 		}
@@ -36,8 +36,7 @@ public class Cliente {
 String cpfLimpo = cpfSujo.replaceAll("\\D", "");
 		
 		if(cpfLimpo.length() != 11) {
-			System.out.println("Tamanho Inválido!");
-			return;
+			throw new ValidacaoException("Tamanho de CPF Inválido");
 		}
 		//DV1
 		int somaDv1 = 0;
@@ -74,7 +73,7 @@ String cpfLimpo = cpfSujo.replaceAll("\\D", "");
 				&& dv2 == Character.getNumericValue(cpfLimpo.charAt(10))) {
 			this.cpf = cpfLimpo;
 		}else {
-			System.out.println("CPF Inválido!");
+			throw new ValidacaoException("CPF Inválido");
 		}
 		
 	}
@@ -85,7 +84,7 @@ String cpfLimpo = cpfSujo.replaceAll("\\D", "");
 
 	public void setTelefone(String telefone) {
 		if(telefone == null || telefone.strip().isEmpty()) {
-			System.out.println("Telefone Nulo ou Vazio");
+			throw new ValidacaoException("Telefone Inválido: não poder ser nulo ou vazio");
 		}else {
 			this.telefone = telefone.replaceAll("\\D", "");
 		}
@@ -97,9 +96,9 @@ String cpfLimpo = cpfSujo.replaceAll("\\D", "");
 
 	public void setEmail(String email) {
 		if(email == null || email.strip().isEmpty()) {
-			System.out.println("E-mail Nulo ou Vazio!");
+			throw new ValidacaoException("E-mail Inválido: não pode ser nulo ou vazio");
 		}else if(!email.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")) {
-			System.out.println("E-mail Inválido!");
+			throw new ValidacaoException("Formato de e-mail inválido: Ex - aaaa@algo.com");
 		}else {
 			this.email = email;
 		}

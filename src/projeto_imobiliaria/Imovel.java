@@ -14,7 +14,7 @@ public abstract class Imovel implements Calculavel {
 	public Imovel(Endereco endereco, double valor, double area, StatusImovel status) {
 		this.cod = ++contadorCodigo;
 		this.endereco = endereco;
-		this.valor = valor;
+		setValor(valor);
 		this.area = area;
 		this.status = status;
 	}
@@ -66,6 +66,9 @@ public abstract class Imovel implements Calculavel {
 	 }
 
 	 public void setValor(double valor) {
+		 if(valor <= 0) {
+			 throw new ValorInvalidoException("Valor do imóvel inválido: deve ser maior que zero");
+		 }else
 		 this.valor = valor;
 	 }
 
