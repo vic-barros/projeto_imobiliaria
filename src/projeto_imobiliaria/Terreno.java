@@ -3,7 +3,7 @@ package projeto_imobiliaria;
 public class Terreno extends Imovel{
     private TipoTerreno tipo;
 
-    public Terreno(int cod, Endereco endereco, double area, StatusImovel status, double valor, TipoTerreno tipo) {
+    public Terreno(Endereco endereco, double area, StatusImovel status, double valor, TipoTerreno tipo) {
         super(endereco, valor, area,status);
         this.tipo = tipo;
     }

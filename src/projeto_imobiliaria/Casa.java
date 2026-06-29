@@ -5,9 +5,9 @@ public class Casa extends Imovel {
     private boolean garagem;
     private double iptu;
 
-    public Casa (int cod, Endereco endereco, double area, StatusImovel status,
-                 double valor, int nrQuartos, boolean garagem, double iptu) {
-        super (cod, endereco, area, status, valor);
+    public Casa (Endereco endereco, double valor, double area, StatusImovel status,
+                 int nrQuartos, boolean garagem, double iptu) {
+        super (endereco, valor, area, status);
         this.nrQuartos = nrQuartos;
         this.garagem = garagem;
         this.iptu = iptu;
