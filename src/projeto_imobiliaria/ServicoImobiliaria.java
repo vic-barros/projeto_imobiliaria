@@ -57,4 +57,28 @@ public class ServicoImobiliaria {
 
 	}
 
+	public void alugarImovel(Imovel i, Cliente locatario, double valorMensal) {
+		try {
+			if (i.getStatus() != StatusImovel.DISPONIVEL) {
+				throw new ValidacaoImovelDisponivel("Imóvel indisponível para aluguel");
+			}
+			if (valorMensal <= 0) {
+				throw new ValorInvalidoException("Valor do aluguel não pode ser menor ou igual a zero");
+
+			}
+
+			i.setStatus(StatusImovel.ALUGADO);
+			Contrato contrato = new Contrato(locatario, i, TipoContrato.ALUGUEL, valorMensal);
+			contratos.add(contrato);
+
+		} catch (ValidacaoImovelDisponivel e) {
+			System.err.println(e.getMessage());
+
+		} catch (ValorInvalidoException e) {
+			System.err.println(e.getMessage());
+
+		}
+
+	}
+
 }
