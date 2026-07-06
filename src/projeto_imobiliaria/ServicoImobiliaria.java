@@ -41,4 +41,20 @@ public class ServicoImobiliaria {
 		}
 	}
 
+	public void venderImovel(Imovel i, Cliente clienteComprador) {
+		try {
+			if (i.getStatus() != StatusImovel.DISPONIVEL) {
+				throw new ValidacaoImovelDisponivel("Imóvel não se encontra disponível");
+			} else {
+				i.setStatus(StatusImovel.VENDIDO);
+
+				Contrato contrato = new Contrato(clienteComprador, i, TipoContrato.VENDA, i.calcularValorFinal());
+				contratos.add(contrato);
+			}
+		} catch (ValidacaoImovelDisponivel e) {
+			System.err.println(e.getMessage());
+		}
+
+	}
+
 }
