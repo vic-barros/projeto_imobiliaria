@@ -15,14 +15,29 @@ public class ServicoImobiliaria {
 
 	public void cadastrarCliente(Cliente c) {
 		try {
-			if(this.clientes.contains(c)) {
-				throw new ValidacaoException("Erro: Já existe um cleinte cadastrado com o CPF "  + c.getCpf());
-			}else {
+			if (this.clientes.contains(c)) {
+				throw new ValidacaoException("Erro: Já existe um cleinte cadastrado com o CPF " + c.getCpf());
+			} else {
 				clientes.add(c);
 				System.out.println("Cliente cadastrado com sucesso!");
 			}
-		}catch(ValidacaoException e) {
+		} catch (ValidacaoException e) {
 			System.err.println(e.getMessage());
+		}
+	}
+
+	public void cadastrarImovel(Imovel i) {
+		try {
+			if (this.imoveis.contains(i)) {
+				throw new ValidacaoException("Erro: esse imóvel já foi cadastrado");
+			} else {
+				imoveis.add(i);
+				System.out.println("Imóvel cadastrado com sucesso!");
+			}
+
+		} catch (ValidacaoException e) {
+			System.err.println(e.getMessage());
+
 		}
 	}
 
