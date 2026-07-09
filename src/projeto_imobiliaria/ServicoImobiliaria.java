@@ -1,6 +1,7 @@
 package projeto_imobiliaria;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ServicoImobiliaria {
 	private ArrayList<Cliente> clientes;
@@ -80,5 +81,52 @@ public class ServicoImobiliaria {
 		}
 
 	}
+	public List<Imovel> buscarImovelPorTipo (String tipo){
+		List<Imovel> resultado = new ArrayList<>();
+		for (Imovel imovel : this.imoveis){
+			if (imovel.getClass().getSimpleName().equalsIgnoreCase(tipo)){
+				resultado.add(imovel);
+			}
+		}
+		return resultado;
+	}
+	public List<Imovel>buscarImovelPorStatus(String status){
+		List<Imovel> resultado = new ArrayList<>();
+		for (Imovel imovel : this.imoveis){
+			if (imovel.getStatus().toString().equalsIgnoreCase(status)){
+				resultado.add(imovel);
+			}
+		}
+		return resultado;
+	}
+	public void gerarRelatorios(){
+		int qtdDisponiveis = 0;
+		int qtdVendido = 0;
+		double totalVendido = 0;
+		int qtdAlugados = 0;
+		double totalAlugado = 0;
+		Imovel imovelMaisCaro = null;
+		for (Imovel imovel : this.imoveis){
+			if (imovelMaisCaro == null || imovel.calcularValorFinal()>
+					imovelMaisCaro.calcularValorFinal()){
+				imovelMaisCaro = imovel;
+			}
+			if (imovel.getStatus() == StatusImovel.DISPONIVEL){
+				qtdDisponiveis++;
+			} else if (imovel.getStatus()== StatusImovel.VENDIDO) {
+				qtdVendido++;
+				totalVendido += imovel.calcularValorFinal();
+			}else if (imovel.getStatus()== StatusImovel.ALUGADO){
+				qtdAlugados++;
+				for (Contrato contrato : this.contratos){
+					if (contrato.getImovel().equals(imovel)){
+						totalAlugado += contrato.getValorAcordado();
+					}
+				}
+			}
+		}
+	}
+
+
 
 }
