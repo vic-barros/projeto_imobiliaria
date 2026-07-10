@@ -1,199 +1,318 @@
 package projeto_imobiliaria;
 
-import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Scanner;
 
 public class GerenciarAgenda {
-    public static void main (String[] args){
-        Scanner scanner = new Scanner(System.in);
-        ServicoImobiliaria servico = new ServicoImobiliaria();
-        int opcao =0;
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		ServicoImobiliaria servico = new ServicoImobiliaria();
+		int opcao = 0;
 
-        do {
-            System.out.println("=======================================================");
-            System.out.println("                      MENU IMOBILIÁRIA                 ");
-            System.out.println("=======================================================");
-            System.out.println("1) Cadastrar Cliente");
-            System.out.println("2) Cadastrar Imóvel");
-            System.out.println("3) Listar Imóveis");
-            System.out.println("4) Vender Imóvel");
-            System.out.println("5) Alugar Imóvel");
-            System.out.println("6) Buscar Imóvel");
-            System.out.println("7) Relatórios");
-            System.out.println("8) Sair do Sistema");
-            System.out.print("Digite a sua opção: ");
+		do {
+			System.out.println("=======================================================");
+			System.out.println("                      MENU IMOBILIÁRIA                 ");
+			System.out.println("=======================================================");
+			System.out.println("1) Cadastrar Cliente");
+			System.out.println("2) Cadastrar Imóvel");
+			System.out.println("3) Listar Imóveis");
+			System.out.println("4) Vender Imóvel");
+			System.out.println("5) Alugar Imóvel");
+			System.out.println("6) Buscar Imóvel");
+			System.out.println("7) Relatórios");
+			System.out.println("8) Sair do Sistema");
+			System.out.print("Digite a sua opção: ");
+			System.out.println("=======================================================");
+			System.out.println("=======================================================");
 
-            opcao = scanner.nextInt();
-            scanner.nextLine();
+			opcao = scanner.nextInt();
+			scanner.nextLine();
 
-            switch (opcao){
-                case 1:
-                    System.out.println("                     CADASTRAR CLIENTE                 ");
-                    System.out.println("=======================================================");
-                    System.out.println("Por gentileza, digite o nome do cliente: ");
-                    String nome = scanner.nextLine();
-                    System.out.println("Digite o número do CPF de "+nome+ ": ");
-                    String cpf = scanner.nextLine();
-                    System.out.println("Qual o telefone para contato? ");
-                    String contato = scanner.nextLine();
-                    System.out.println("Qual o email?");
-                    String email = scanner.nextLine();
-                    Cliente cliente = new Cliente(nome,cpf,contato,email);
-                    servico.cadastrarCliente(cliente);
-                    break;
-                case 2:
-                    System.out.println("                      CADASTRAR IMÓVEL                 ");
-                    System.out.println("=======================================================");
-                    System.out.println("Qual o nome da rua do imóvel que deseja cadastrar?");
-                    String logradouro = scanner.nextLine();
-                    System.out.println("Qual o número? ");
-                    int numero = scanner.nextInt();
-                    scanner.nextLine();
-                    System.out.println("Digite o nome do bairro: ");
-                    String bairro = scanner.nextLine();
-                    System.out.println("Digite o nome da cidade: ");
-                    String cidade = scanner.nextLine();
-                    Endereco localizaco = new Endereco(logradouro, numero, bairro, cidade);
-                    System.out.println("Valor do imóvel R$: ");
-                    double valor = scanner.nextDouble();
-                    System.out.println("Área do imóvel m²: ");
-                    double area = scanner.nextDouble();
-                    scanner.nextLine();
-                    System.out.println("Escolha uma opção de status do imóvel: " +
-                            "\n1) Disponível" +
-                            "\n2) Alugado" +
-                            "\n3) Vendido ");
-                    int opcaoStatus = scanner.nextInt();
-                    scanner.nextLine();
-                    StatusImovel statusImovel = null;
-                    if (opcaoStatus == 1){
-                        statusImovel = StatusImovel.DISPONIVEL;
-                    } else if (opcaoStatus == 2) {
-                        statusImovel = StatusImovel.ALUGADO;
-                    } else if (opcaoStatus == 3) {
-                        statusImovel = StatusImovel.VENDIDO;
-                    }else {
-                        System.out.println("Inválido! Tente Novamente");
-                    }
-                    Imovel cadastrarImovel = new Imovel(localizaco, valor, area, statusImovel) {
-                        @Override
-                        public double calcularValorFinal() {
-                            return 0;
-                            // PRECISA CORRIGIR O RETORNO DO CALCULARVALORFINAL
-                            // O RETORNO SEMPRE SERÁ ZERO.
-                        }
-                    };
-                    servico.cadastrarImovel(cadastrarImovel);
-                    break;
+			switch (opcao) {
+			case 1:
+				System.out.println("                     CADASTRAR CLIENTE                 ");
+				System.out.println("=======================================================");
+				System.out.println("Digite o nome do Cliente: ");
+				String nome = scanner.nextLine();
+				System.out.println("Digite o número do CPF de " + nome + ": ");
+				String cpf = scanner.nextLine();
+				System.out.println("Telefone de Contato: ");
+				String contato = scanner.nextLine();
+				System.out.println("E-mail: ");
+				String email = scanner.nextLine();
+				Cliente cliente = new Cliente(nome, cpf, contato, email);
+				servico.cadastrarCliente(cliente);
+				break;
 
-                case 3:
+			case 2:
+				System.out.println("                      CADASTRAR IMÓVEL                 ");
+				System.out.println("=======================================================");
+				System.out.println("Escolha o tipo de imóvel:\n1) Casa\n2) Apartamento\n3) Terreno");
+				int tipoImovel = scanner.nextInt();
+				scanner.nextLine();
 
-                    break;
-                case 4:
+				System.out.println("Rua do Imóvel: ");
+				String logradouro = scanner.nextLine();
+				System.out.println("Número do Imóvel: ");
+				int numero = scanner.nextInt();
+				scanner.nextLine();
+				System.out.println("Bairro do Imóvel: ");
+				String bairro = scanner.nextLine();
+				System.out.println("Cidade do Imóvel: ");
+				String cidade = scanner.nextLine();
+				Endereco localizaco = new Endereco(logradouro, numero, bairro, cidade);
 
-                    break;
+				System.out.println("Valor do imóvel R$: ");
+				double valor = scanner.nextDouble();
+				System.out.println("Área do imóvel m²: ");
+				double area = scanner.nextDouble();
+				scanner.nextLine();
 
-                case 5:
+				System.out.println("Escolha o status do imóvel:\n1) Disponível\n2) Alugado\n3) Vendido");
+				int opcaoStatus = scanner.nextInt();
+				scanner.nextLine();
 
-                    break;
+				StatusImovel statusImovel = StatusImovel.DISPONIVEL;
+				if (opcaoStatus == 2)
+					statusImovel = StatusImovel.ALUGADO;
+				else if (opcaoStatus == 3)
+					statusImovel = StatusImovel.VENDIDO;
 
-                case 6:
-                    System.out.println("Que tipo de busca deseja realizar?");
-                    System.out.println("1) Por Imovél ");
-                    System.out.println("2) Por Status ");
-                    System.out.println("Digite a opção: ");
-                    opcao = scanner.nextInt();
-                    scanner.nextLine();
-                    String escolha = String.valueOf(opcao);
-                    switch (opcao){
-                        case 1:
-                            System.out.println("Qual Imóvel deseja buscar?");
-                            System.out.println("1) Casa");
-                            System.out.println("2) Apartamento");
-                            System.out.println("Digite a opção: ");
-                            opcao = scanner.nextInt();
-                            scanner.nextLine();
-                            String escolhaImovel="";
-                                if (opcao == 1){
-                                    escolhaImovel = "casa";
-                                } else if (opcao == 2) {
-                                    escolhaImovel = "apartamento";
+				Imovel cadastrarImovel = null;
 
-                                }else {
-                                    System.out.println("Opção Inválida! Tente Novamente. ");
-                                }
+				if (tipoImovel == 1) {
+					System.out.println("Número de quartos: ");
+					int quartos = scanner.nextInt();
+					System.out.println("Possui garagem? (true/false): ");
+					boolean garagem = scanner.nextBoolean();
+					System.out.println("Valor do IPTU R$: ");
+					double iptuCasa = scanner.nextDouble();
+					scanner.nextLine();
 
-                                List<Imovel> imoveisEncontrados = servico.buscarImovelPorTipo(escolhaImovel);
-                                if (imoveisEncontrados.isEmpty()){
-                                    System.out.println("Poxa, que pena! Não foi encontrado nenhum imóvel desse tipo!");
-                                }else {
-                                    System.out.println("=======================================================");
-                                    System.out.println("                      MENU IMOBILIÁRIA                 ");
-                                    System.out.println("=======================================================");
-                                    int contador = 1;
-                                    for (Imovel imovel : imoveisEncontrados){
-                                        System.out.println(contador+") "+imovel);
-                                        contador ++;
-                                    }
-                                }
+					cadastrarImovel = new Casa(localizaco, valor, area, statusImovel, quartos, garagem, iptuCasa);
 
-                            break;
-                        case 2:
-                            System.out.println("Qual Status do imóvel que procura?");
-                            System.out.println("1) Disponível");
-                            System.out.println("2) Alugado");
-                            System.out.println("3) Vendido");
-                            opcao = scanner.nextInt();
-                            scanner.nextLine();
-                            String statusEscolha="";
-                            if (opcao == 1){
-                                statusEscolha = "disponivel";
-                            } else if (opcao ==2) {
-                                statusEscolha="alugado";
-                            } else if (opcao ==3) {
-                                statusEscolha = "vendido";
+				} else if (tipoImovel == 2) {
+					System.out.println("Andar: ");
+					int andar = scanner.nextInt();
+					System.out.println("Número do Apt: ");
+					int numApt = scanner.nextInt();
+					System.out.println("Valor do IPTU R$: ");
+					double iptuApt = scanner.nextDouble();
+					System.out.println("Valor do Condomínio R$: ");
+					double condominio = scanner.nextDouble();
+					scanner.nextLine();
 
-                            }else {
-                                System.out.println("Opção Inválida! Não desista dos seus sonhos! Tente Novamente!");
-                            }
-                            List <Imovel> buscarImovelPorStatus = servico.buscarImovelPorStatus(statusEscolha);
-                            if (buscarImovelPorStatus.isEmpty()){
-                                System.out.println("Poxa, que pena! Não foi encontrado nenhum imóvel desse tipo!");
-                            }else {
-                                System.out.println("=======================================================");
-                                System.out.println("                      MENU IMOBILIÁRIA                 ");
-                                System.out.println("=======================================================");
-                                int contador =1;
-                                for (Imovel imovel : buscarImovelPorStatus){
-                                    System.out.println(contador +") "+ imovel);
-                                    contador++;
-                                }
-                            }
-                            break;
-                        default:
-                            System.out.println("Opção Inválida! Seu imóvel está perto de você! Tente Novamente!");
-                    }
+					cadastrarImovel = new Apartamento(localizaco, area, statusImovel, valor, andar, numApt, iptuApt,
+							condominio);
 
-                    break;
+				} else if (tipoImovel == 3) {
+					System.out.println("Tipo do Terreno:\n1) Residencial\n2) Comercial");
+					int opcaoTerreno = scanner.nextInt();
+					scanner.nextLine();
 
-                case 7:
-                    servico.gerarRelatorios();
+					TipoTerreno tipoTerreno = (opcaoTerreno == 2) ? TipoTerreno.COMERCIAL : TipoTerreno.RESIDENCIAL;
 
-                    break;
+					cadastrarImovel = new Terreno(localizaco, area, statusImovel, valor, tipoTerreno);
+				}
 
-                case 8:
-                    System.out.println("Nunca desista dos seus sonhos!");
-                    System.out.println("Obrigado e volte sempre! ;)");
+				if (cadastrarImovel != null) {
+					servico.cadastrarImovel(cadastrarImovel);
+				} else {
+					System.out.println("Tipo de imóvel inválido! Cadastro cancelado.");
+				}
+				break;
 
-                    break;
+			case 3:
+				System.out.println("                      LISTAR IMÓVEIS                  ");
+				System.out.println("=======================================================");
 
-                default:
-                    System.out.println("Opção Inválida! Tente Novamente! ;)");
+				List<Imovel> listaDeImoveis = servico.getImoveis();
 
-            }
+				if (listaDeImoveis.isEmpty()) {
+					System.out.println("Nenhum imóvel cadastrado no sistema até o momento.");
+				} else {
 
-        }while (opcao != 8);
-        scanner.close();
-    }
+					for (Imovel imovel : listaDeImoveis) {
+						System.out.println(imovel);
+						System.out.println("-------------------------------------------------------");
+					}
+				}
+				break;
+
+			case 4:
+				System.out.println("                        VENDER IMÓVEL                  ");
+				System.out.println("=======================================================");
+
+				System.out.print("Digite o CPF do cliente comprador: ");
+				String cpfBusca = scanner.nextLine();
+
+				Cliente clienteComprador = null;
+				for (Cliente c : servico.getClientes()) {
+					if (c.getCpf().equals(cpfBusca)) {
+						clienteComprador = c;
+						break;
+					}
+				}
+
+				System.out.print("Digite o Código do imóvel a ser vendido: ");
+				int codBusca = scanner.nextInt();
+				scanner.nextLine();
+
+				Imovel imovelVenda = null;
+				for (Imovel i : servico.getImoveis()) {
+					if (i.getCod() == codBusca) {
+						imovelVenda = i;
+						break;
+					}
+				}
+
+				if (clienteComprador == null) {
+					System.out.println("Erro: Não foi encontrado nenhum cliente com o CPF informado.");
+				} else if (imovelVenda == null) {
+					System.out.println("Erro: Não foi encontrado nenhum imóvel com o Código informado.");
+				} else {
+					servico.venderImovel(imovelVenda, clienteComprador);
+				}
+				break;
+
+			case 5:
+				System.out.println("                        ALUGAR IMÓVEL                  ");
+				System.out.println("=======================================================");
+
+				System.out.print("Digite o CPF do cliente locatário: ");
+				String cpfLocatario = scanner.nextLine();
+
+				Cliente clienteLocatario = null;
+				for (Cliente c : servico.getClientes()) {
+					if (c.getCpf().equals(cpfLocatario)) {
+						clienteLocatario = c;
+						break;
+					}
+				}
+
+				System.out.print("Digite o Código do imóvel a ser alugado: ");
+				int codAluguel = scanner.nextInt();
+				scanner.nextLine();
+
+				Imovel imovelAluguel = null;
+				for (Imovel i : servico.getImoveis()) {
+					if (i.getCod() == codAluguel) {
+						imovelAluguel = i;
+						break;
+					}
+				}
+
+				if (clienteLocatario == null) {
+					System.out.println("Erro: Não foi encontrado nenhum cliente com o CPF informado.");
+				} else if (imovelAluguel == null) {
+					System.out.println("Erro: Não foi encontrado nenhum imóvel com o Código informado.");
+				} else {
+
+					System.out.print("Digite o valor mensal do aluguel R$: ");
+					double valorMensal = scanner.nextDouble();
+					scanner.nextLine();
+
+					servico.alugarImovel(imovelAluguel, clienteLocatario, valorMensal);
+				}
+				break;
+
+			case 6:
+				System.out.println("Que tipo de busca deseja realizar?");
+				System.out.println("1) Por Tipo de Imóvel (Casa/Apartamento)");
+				System.out.println("2) Por Status (Disponível/Alugado/Vendido)");
+				System.out.print("Digite a opção: ");
+				int opcaoBusca = scanner.nextInt();
+				scanner.nextLine();
+
+				switch (opcaoBusca) {
+				case 1:
+					System.out.println("\nQual Tipo de Imóvel deseja buscar?");
+					System.out.println("1) Casa");
+					System.out.println("2) Apartamento");
+					System.out.print("Digite a opção: ");
+					int opTipo = scanner.nextInt();
+					scanner.nextLine();
+
+					String escolhaImovel = "";
+					if (opTipo == 1) {
+						escolhaImovel = "Casa";
+					} else if (opTipo == 2) {
+						escolhaImovel = "Apartamento";
+					} else {
+						System.out.println("Opção Inválida!");
+						break;
+					}
+
+					List<Imovel> imoveisPorTipo = servico.buscarImovelPorTipo(escolhaImovel);
+					if (imoveisPorTipo.isEmpty()) {
+						System.out.println("Poxa, que pena! Não foi encontrado nenhum imóvel desse tipo.");
+					} else {
+						System.out.println("=======================================================");
+						System.out.println("                  IMÓVEIS ENCONTRADOS                  ");
+						System.out.println("=======================================================");
+						for (Imovel imovel : imoveisPorTipo) {
+							System.out.println(imovel);
+							System.out.println("-------------------------------------------------------");
+						}
+					}
+					break;
+
+				case 2:
+					System.out.println("\nQual Status do imóvel você procura?");
+					System.out.println("1) Disponível");
+					System.out.println("2) Alugado");
+					System.out.println("3) Vendido");
+					System.out.print("Digite a opção: ");
+					int opStatus = scanner.nextInt();
+					scanner.nextLine();
+
+					String statusEscolha = "";
+					if (opStatus == 1) {
+						statusEscolha = "DISPONIVEL";
+					} else if (opStatus == 2) {
+						statusEscolha = "ALUGADO";
+					} else if (opStatus == 3) {
+						statusEscolha = "VENDIDO";
+					} else {
+						System.out.println("Opção Inválida!");
+						break;
+					}
+
+					List<Imovel> imoveisPorStatus = servico.buscarImovelPorStatus(statusEscolha);
+					if (imoveisPorStatus.isEmpty()) {
+						System.out.println("Poxa, que pena! Não foi encontrado nenhum imóvel com esse status.");
+					} else {
+						System.out.println("=======================================================");
+						System.out.println("                  IMÓVEIS ENCONTRADOS                  ");
+						System.out.println("=======================================================");
+						for (Imovel imovel : imoveisPorStatus) {
+							System.out.println(imovel);
+							System.out.println("-------------------------------------------------------");
+						}
+					}
+					break;
+
+				default:
+					System.out.println("Opção de busca inválida! Tente Novamente.");
+				}
+				break;
+			case 7:
+				servico.gerarRelatorios();
+
+				break;
+
+			case 8:
+				System.out.println("Nunca desista dos seus sonhos!");
+				System.out.println("Obrigado e volte sempre! ;)");
+
+				break;
+
+			default:
+				System.out.println("Opção Inválida! Tente Novamente! ;)");
+
+			}
+
+		} while (opcao != 8);
+		scanner.close();
+	}
 }

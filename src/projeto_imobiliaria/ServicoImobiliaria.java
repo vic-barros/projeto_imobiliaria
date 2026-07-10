@@ -17,12 +17,12 @@ public class ServicoImobiliaria {
 	public void cadastrarCliente(Cliente c) {
 		try {
 			if (this.clientes.contains(c)) {
-				throw new ValidacaoException("Erro: Já existe um cleinte cadastrado com o CPF " + c.getCpf());
+				throw new ValidacaoCpf("Erro: Já existe um cliente cadastrado com o CPF " + c.getCpf());
 			} else {
 				this.clientes.add(c);
-				System.out.println(c.getNome()+", foi cadastrado com sucesso!");
+				System.out.println(c.getNome() + ", foi cadastrado com sucesso!");
 			}
-		} catch (ValidacaoException e) {
+		} catch (ValidacaoCpf e) {
 			System.err.println(e.getMessage());
 		}
 	}
@@ -131,23 +131,46 @@ public class ServicoImobiliaria {
 			}
 		}
 
-			System.out.println("RELATÓRIO DA IMOBILIÁRIA");
-			System.out.println("Quantidade de imóveis disponíveis: " + qtdDisponiveis);
-			System.out.println("Quantidade de imóveis vendidos:    " + qtdVendido);
-			System.out.printf("Total arrecadado com vendas:       R$ %.2f\n", totalVendido);
-			System.out.println("-------------------------------------------------------");
-			System.out.println("Quantidade de imóveis alugados:    " + qtdAlugados);
-			System.out.printf("Total faturado com aluguéis:       R$ %.2f\n", totalAlugado);
-			System.out.println("-------------------------------------------------------");
+		System.out.println("RELATÓRIO DA IMOBILIÁRIA");
+		System.out.println("Quantidade de imóveis disponíveis: " + qtdDisponiveis);
+		System.out.println("Quantidade de imóveis vendidos:    " + qtdVendido);
+		System.out.printf("Total arrecadado com vendas:       R$ %.2f\n", totalVendido);
+		System.out.println("-------------------------------------------------------");
+		System.out.println("Quantidade de imóveis alugados:    " + qtdAlugados);
+		System.out.printf("Total faturado com aluguéis:       R$ %.2f\n", totalAlugado);
+		System.out.println("-------------------------------------------------------");
 
-			if (imovelMaisCaro != null) {
-				System.out.println("Imóvel mais caro do portfólio:");
-				System.out.println(imovelMaisCaro);
-				System.out.printf("Valor Final com taxas incluídas: R$ %.2f\n", imovelMaisCaro.calcularValorFinal());
-			} else {
-				System.out.println("Nenhum imóvel cadastrado para avaliar o mais caro.");
-			}
+		if (imovelMaisCaro != null) {
+			System.out.println("Imóvel mais caro do portfólio:");
+			System.out.println(imovelMaisCaro);
+			System.out.printf("Valor Final com taxas incluídas: R$ %.2f\n", imovelMaisCaro.calcularValorFinal());
+		} else {
+			System.out.println("Nenhum imóvel cadastrado para avaliar o mais caro.");
 		}
+
 	}
 
+	public ArrayList<Cliente> getClientes() {
+		return clientes;
+	}
 
+	public void setClientes(ArrayList<Cliente> clientes) {
+		this.clientes = clientes;
+	}
+
+	public ArrayList<Imovel> getImoveis() {
+		return imoveis;
+	}
+
+	public void setImoveis(ArrayList<Imovel> imoveis) {
+		this.imoveis = imoveis;
+	}
+
+	public ArrayList<Contrato> getContratos() {
+		return contratos;
+	}
+
+	public void setContratos(ArrayList<Contrato> contratos) {
+		this.contratos = contratos;
+	}
+}
