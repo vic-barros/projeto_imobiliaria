@@ -19,8 +19,8 @@ public class ServicoImobiliaria {
 			if (this.clientes.contains(c)) {
 				throw new ValidacaoException("Erro: Já existe um cleinte cadastrado com o CPF " + c.getCpf());
 			} else {
-				clientes.add(c);
-				System.out.println("Cliente cadastrado com sucesso!");
+				this.clientes.add(c);
+				System.out.println(c.getNome()+", foi cadastrado com sucesso!");
 			}
 		} catch (ValidacaoException e) {
 			System.err.println(e.getMessage());
@@ -129,6 +129,7 @@ public class ServicoImobiliaria {
 			if (contrato.getTipoContrato() == TipoContrato.ALUGUEL) {
 				totalAlugado += contrato.getValorAcordado();
 			}
+		}
 
 			System.out.println("RELATÓRIO DA IMOBILIÁRIA");
 			System.out.println("Quantidade de imóveis disponíveis: " + qtdDisponiveis);
@@ -149,4 +150,4 @@ public class ServicoImobiliaria {
 		}
 	}
 
-}
+
