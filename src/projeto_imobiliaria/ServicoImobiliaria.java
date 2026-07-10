@@ -81,52 +81,72 @@ public class ServicoImobiliaria {
 		}
 
 	}
-	public List<Imovel> buscarImovelPorTipo (String tipo){
+
+	public List<Imovel> buscarImovelPorTipo(String tipo) {
 		List<Imovel> resultado = new ArrayList<>();
-		for (Imovel imovel : this.imoveis){
-			if (imovel.getClass().getSimpleName().equalsIgnoreCase(tipo)){
+		for (Imovel imovel : this.imoveis) {
+			if (imovel.getClass().getSimpleName().equalsIgnoreCase(tipo)) {
 				resultado.add(imovel);
 			}
 		}
 		return resultado;
 	}
-	public List<Imovel>buscarImovelPorStatus(String status){
+
+	public List<Imovel> buscarImovelPorStatus(String status) {
 		List<Imovel> resultado = new ArrayList<>();
-		for (Imovel imovel : this.imoveis){
-			if (imovel.getStatus().toString().equalsIgnoreCase(status)){
+		for (Imovel imovel : this.imoveis) {
+			if (imovel.getStatus().toString().equalsIgnoreCase(status)) {
 				resultado.add(imovel);
 			}
 		}
 		return resultado;
 	}
-	public void gerarRelatorios(){
+
+	public void gerarRelatorios() {
 		int qtdDisponiveis = 0;
 		int qtdVendido = 0;
 		double totalVendido = 0;
 		int qtdAlugados = 0;
 		double totalAlugado = 0;
 		Imovel imovelMaisCaro = null;
-		for (Imovel imovel : this.imoveis){
-			if (imovelMaisCaro == null || imovel.calcularValorFinal()>
-					imovelMaisCaro.calcularValorFinal()){
+
+		for (Imovel imovel : this.imoveis) {
+			if (imovelMaisCaro == null || imovel.calcularValorFinal() > imovelMaisCaro.calcularValorFinal()) {
 				imovelMaisCaro = imovel;
 			}
-			if (imovel.getStatus() == StatusImovel.DISPONIVEL){
+
+			if (imovel.getStatus() == StatusImovel.DISPONIVEL) {
 				qtdDisponiveis++;
-			} else if (imovel.getStatus()== StatusImovel.VENDIDO) {
+			} else if (imovel.getStatus() == StatusImovel.VENDIDO) {
 				qtdVendido++;
 				totalVendido += imovel.calcularValorFinal();
-			}else if (imovel.getStatus()== StatusImovel.ALUGADO){
+			} else if (imovel.getStatus() == StatusImovel.ALUGADO) {
 				qtdAlugados++;
-				for (Contrato contrato : this.contratos){
-					if (contrato.getImovel().equals(imovel)){
-						totalAlugado += contrato.getValorAcordado();
-					}
-				}
+			}
+		}
+
+		for (Contrato contrato : this.contratos) {
+			if (contrato.getTipoContrato() == TipoContrato.ALUGUEL) {
+				totalAlugado += contrato.getValorAcordado();
+			}
+
+			System.out.println("RELATÓRIO DA IMOBILIÁRIA");
+			System.out.println("Quantidade de imóveis disponíveis: " + qtdDisponiveis);
+			System.out.println("Quantidade de imóveis vendidos:    " + qtdVendido);
+			System.out.printf("Total arrecadado com vendas:       R$ %.2f\n", totalVendido);
+			System.out.println("-------------------------------------------------------");
+			System.out.println("Quantidade de imóveis alugados:    " + qtdAlugados);
+			System.out.printf("Total faturado com aluguéis:       R$ %.2f\n", totalAlugado);
+			System.out.println("-------------------------------------------------------");
+
+			if (imovelMaisCaro != null) {
+				System.out.println("Imóvel mais caro do portfólio:");
+				System.out.println(imovelMaisCaro);
+				System.out.printf("Valor Final com taxas incluídas: R$ %.2f\n", imovelMaisCaro.calcularValorFinal());
+			} else {
+				System.out.println("Nenhum imóvel cadastrado para avaliar o mais caro.");
 			}
 		}
 	}
-
-
 
 }
