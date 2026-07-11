@@ -36,7 +36,7 @@ public class Cliente {
 String cpfLimpo = cpfSujo.replaceAll("\\D", "");
 		
 		if(cpfLimpo.length() != 11) {
-			throw new ValidacaoException("Tamanho de CPF Inválido");
+			throw new ValidacaoCpf("Tamanho de CPF Inválido");
 		}
 		//DV1
 		int somaDv1 = 0;
@@ -73,7 +73,7 @@ String cpfLimpo = cpfSujo.replaceAll("\\D", "");
 				&& dv2 == Character.getNumericValue(cpfLimpo.charAt(10))) {
 			this.cpf = cpfLimpo;
 		}else {
-			throw new ValidacaoException("CPF Inválido");
+			throw new ValidacaoCpf("CPF Inválido");
 		}
 		
 	}
