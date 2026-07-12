@@ -7,6 +7,8 @@ public class Cliente {
 	private String cpf;
 	private String telefone;
 	private String email;
+
+	public Cliente (){}
 	
 	public Cliente(String nome, String cpf, String telefone, String email) {
 		setNome(nome);
@@ -33,7 +35,7 @@ public class Cliente {
 	}
 
 	public void setCpf(String cpfSujo) {
-String cpfLimpo = cpfSujo.replaceAll("\\D", "");
+	String cpfLimpo = cpfSujo.replaceAll("\\D", "");
 		
 		if(cpfLimpo.length() != 11) {
 			throw new ValidacaoCpf("Tamanho de CPF Inválido");
