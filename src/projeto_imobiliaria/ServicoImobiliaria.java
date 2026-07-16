@@ -130,8 +130,9 @@ public class ServicoImobiliaria {
 				totalAlugado += contrato.getValorAcordado();
 			}
 		}
-
-		System.out.println("RELATÓRIO DA IMOBILIÁRIA");
+		System.out.println("=========================================================");
+		System.out.println("                RELATÓRIO DA IMOBILIÁRIA                 ");
+		System.out.println("=========================================================");
 		System.out.println("Quantidade de imóveis disponíveis: " + qtdDisponiveis);
 		System.out.println("Quantidade de imóveis vendidos:    " + qtdVendido);
 		System.out.printf("Total arrecadado com vendas:       R$ %.2f\n", totalVendido);
